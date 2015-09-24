@@ -1,0 +1,22 @@
+{
+  "name": "neighborhood-app",
+  "version": "0.0.1",
+  "authors": [
+    "Yaz Khoury <yaz.khoury@gmail.com>"
+  ],
+  "description": "Neighborhood app with map and functionalities",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
