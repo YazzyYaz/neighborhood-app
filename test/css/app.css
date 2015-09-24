@@ -1,0 +1,62 @@
+* {
+	font-family: 'Lato', sans-serif;
+}
+body {
+	background-color: grey;
+}
+h3 {
+	font-family: 'Lato', sans-serif;
+}
+.header {
+	background-color: white;
+}
+#logo-font {
+	color: #a5fb97;
+	padding: 18px;
+}
+
+.main-logo {
+	font-family: 'Lato', sans-serif;
+	font-size: 36px;
+	padding: 18px;
+}
+
+#flexer {
+	display: flex;
+}
+
+.google-maps {
+	display: block;
+	margin-top: 20px;
+    position: relative;
+    padding-bottom: 75%; 
+    height: 0;
+    overflow: hidden;
+    height:100%;
+}
+
+.google-maps iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 300px;
+}
+
+.app-container {
+	padding-top: 20px;
+	background-color: white;
+	
+}
+
+.option-select {
+	color: #a5fb97;
+}
+
+.footer {
+	background-color: grey;
+}
+
+.footer-red {
+	color: red;
+}

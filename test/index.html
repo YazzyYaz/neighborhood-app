@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+		<title>Neighborhood App</title>
+
+		<!-- Normalize -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<!-- Foundation -->
+		<link rel="stylesheet" href="css/foundation.css">
+		<!-- Stylesheet -->
+		<link rel="stylesheet" href="css/app.css">
+		<!-- Modernizr -->
+		<script src="js/vendor/modernizr.js"></script>
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<!-- Google Webfonts -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+	</head>
+
+	<body>
+
+		<section>
+
+			<header class="header">
+
+				<div class="row">
+					<div class="small-12 columns" id="flexer">
+						<span id="logo-font" class="fa fa-map fa-4x"></span><h1 class="main-logo">Hidden Gem</h1>
+					</div>
+				</div>
+
+				<nav class="top-bar" data-topbar role="navigation">
+					<ul class="title-area">
+						<li class="name">
+							<h2><a href="#">Welcome</a></h2>
+						</li>
+						<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+					</ul>
+
+					<section class="top-bar-section">
+						<!-- Right Nav Section -->
+						<ul class="right">
+							<li class="has-form">
+								<div class="row collapse">
+									<div class="large-8 small-9 columns">
+										<input type="text" id="search-results" placeholder="Find Hood">
+									</div>
+									<div class="large-4 small-3 columns">
+										<a href="#" class="success button expand">Search</a>
+									</div>
+								</div>
+							</li>
+
+							<li class="has-dropdown">
+								<a href="#">Navigation</a>
+								<ul class="dropdown">
+									<li><a href="#">First link in dropdown</a></li>
+									<li class="active"><a href="#">Active link in dropdown</a></li>
+								</ul>
+							</li>
+						</ul>
+
+					</section>
+				</nav>
+
+			</header>
+
+		</section>
+
+		<section>
+			<div class="app-container">
+				<div class="row">
+					<div class="large-2 medium-2 small-2 columns">
+						<div class="icon-bar vertical five-up">
+
+							<a class="item option-select">
+								<span class="fa fa-cutlery fa-2x"></span>
+								<label>Restaurants</label>
+							</a>
+
+							<a class="item option-select">
+								<span class="fa fa-coffee fa-2x"></span>
+								<label>Cafes</label>
+							</a>
+
+							<a class="item option-select">
+								<span class="fa fa-book fa-2x"></span>
+								<label>Bookstores</label>
+							</a>
+
+							<a class="item option-select">
+								<span class="fa fa-bed fa-2x"></span>
+								<label>Hotels</label>
+							</a>
+
+							<a class="item option-select">
+								<span class="fa fa-beer fa-2x"></span>
+								<label>Bars</label>
+							</a>
+
+						</div>
+					</div>
+
+					<div class="large-10 medium-10 small-10 columns google-maps">
+						<iframe  frameborder="0" style="border:0" src="https://www.google.com/maps/embed?&key=AIzaSyD4OlQrNdg-bZaQ_gv6tQqGTLKnLSg6hHA" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<footer class="footer">
+				<div class="row">
+					<div class="large-8 large-offset-2 columns">
+						<h3 class="text-center">Follow Me on Social Media</h3>
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-3 large-offset-1 columns">
+						<a href=""><span class="fa fa-github fa-5x option-select"></span></a>
+					</div>
+					<div class="large-3 large-offset-1 columns">
+						<a href=""><span class="fa fa-linkedin fa-5x option-select"></span></a>
+					</div>
+					<div class="large-3 large-offset-1 columns">
+						<a href=""><span class="fa fa-twitter fa-5x option-select"></span></a>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<p class="text-center">Made with <span class="fa fa-heart fa-2x footer-red"></span> and <span class="fa fa-coffee fa-2x"></span> by Yaz Khoury</p>
+					<br>
+				</div>
+			</footer>
+		</section>
+
+
+		<!-- Javascript -->
+		<script src="js/vendor/jquery.js"></script>
+		<script src="js/foundation.min.js"></script>
+		<script src="js/knockout.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+		$(document).foundation();
+		</script>
+
+	</body>
+</html>
