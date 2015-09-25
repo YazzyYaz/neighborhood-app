@@ -1,30 +1,20 @@
-$(document).ready(function () {   
-   ko.applyBindings(viewModel);
-});
+'use strict';
+var map;
 
+function initMap() {
+	var mapOptions = {
+		center: new google.maps.LatLng(40.5472,12.282715),
+		zoom: 6,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
+	google.maps.event.addDomListener(window, 'resize', function() {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, 'resize');
+		map.setCenter(center); 
+	});
+}
 
-ko.bindingHandlers.map = {
+google.maps.event.addDomListener(window, 'load', initMap);
 
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-        var mapObj = ko.utils.unwrapObservable(valueAccessor());
-        var latLng = new google.maps.LatLng(
-            ko.utils.unwrapObservable(mapObj.lat),
-            ko.utils.unwrapObservable(mapObj.lng));
-        var mapOptions = { center: latLng,
-                          zoom: 5, 
-                          mapTypeId: google.maps.MapTypeId.ROADMAP};
-
-        mapObj.googleMap = new google.maps.Map(element, mapOptions);
-    }
-};
-
-function ViewModel() {
-	var self = this;
-
-    self.myMap = ko.observable({
-        lat: ko.observable(55),
-        lng: ko.observable(11)});
-};
-
-var viewModel = new ViewModel();

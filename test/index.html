@@ -55,13 +55,13 @@
 						</ul>
 
 						<ul class="left">
-							<li class="has-form">
+							<li class="has-form" id="search-form">
 								<div class="row collapse">
 									<div class="large-8 small-9 columns">
-										<input type="text" id="search-results" placeholder="Find Hood">
+										<input data-bind="value: keyword" type="text" id="keyterm" placeholder="Find Hood">
 									</div>
 									<div class="large-4 small-3 columns">
-										<a href="#" class="success button expand"><span class="fa fa-search"></span></a>
+										<a href="#" class="success button expand" id="submit-btn"><span class="fa fa-search"></span></a>
 									</div>
 								</div>
 							</li>
@@ -74,12 +74,10 @@
 
 		</section>
 
-		<section>
-				<div class="row">
-					<div class="large-12 medium-12 small-12 columns">
-						<div id="map-canvas" data-bind="map: myMap"></div>
-					</div>
-				</div>
+		<section id="map-container">
+
+			<div id="map-canvas"></div>
+		
 		</section>
 
 		<section>
