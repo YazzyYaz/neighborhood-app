@@ -6,13 +6,13 @@ function initMap() {
 		zoom: 6,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
-	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+	google.maps.event.addDomListener(window, 'resize', function() {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, 'resize');
+		map.setCenter(center); 
+	});
 }
 
 google.maps.event.addDomListener(window, 'load', initMap);
-
-google.maps.event.addDomListener(window, "resize", function() {
-	var center = map.getCenter();
-	google.maps.event.trigger(map, "resize");
-	map.setCenter(center); 
-});

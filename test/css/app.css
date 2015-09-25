@@ -1,19 +1,26 @@
 * {
 	font-family: 'Lato', sans-serif;
 }
+
 html {
 	height: 100%;
 }
+
 body {
 	height: 100%;
 	background-color: grey;
+	margin: 0; 
+	padding: 0
 }
+
 h3 {
 	font-family: 'Lato', sans-serif;
 }
+
 .header {
 	background-color: white;
 }
+
 #logo-font {
 	color: #a5fb97;
 	padding: 18px;
@@ -29,27 +36,9 @@ h3 {
 	display: flex;
 }
 
-/*.google-maps {
-	display: block;
-	margin-top: 20px;
-    position: relative;
-    padding-bottom: 20%; 
-    overflow: hidden;
-    height:200px;
-}
-
-.google-maps iframe {
-    position: absolute;
-    width: 100%; 
-    height: 300px;
-}*/
-
 .app-container {
-	margin: 20px;
+	margin: 50px;
 	background-color: white;
-	width: 100%;
-	height: auto;
-	
 }
 
 .option-select {
@@ -63,15 +52,21 @@ h3 {
 .footer-red {
 	color: red;
 }
-#map-canvas {
-    height: 400px;
-    width: 100%;
-    /*text-align: center;*/
 
-    margin-top: 10px;
-    padding: 0px
+#map-canvas {
+	height: 400px;
+	width: 600px;
+	margin-top: 10px;
 }
-/*#map-canvas {
-	height: 100%;
-	width: 100%;
-}*/
+
+.foot-text {
+	color: white;
+}
+
+@media screen and (max-width: 878px){
+	#map-canvas {
+		height: 300px;
+		width: 400px;
+	}
+
+}
