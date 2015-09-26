@@ -3,6 +3,7 @@
 // Documentation can be found at https://developers.google.com/maps/documentation/javascript/examples/places-searchbox?hl=en
 var map;
 var infowindow;
+var top_bar = $('#right-panel');
 
 function initMap() {
 	var mapOptions = {
@@ -109,15 +110,19 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
+	console.log(place);
 	var lat = place.location.lat;
 	var lng = place.location.lng;
 	var name = place.name;
 	var position = new google.maps.LatLng(lat, lng);
+	// var category = place.categories[0].name;
 
 	var marker = new google.maps.Marker({
 		map: map,
 		position: position
 	});
+	var head_name = '<label class="text-left">' + name + '</label>';
+	top_bar.append(head_name);
 
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.setContent(name);

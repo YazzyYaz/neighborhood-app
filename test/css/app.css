@@ -67,3 +67,18 @@ h3 {
 .foot-text {
 	color: white;
 }
+
+#right-panel {
+	font-family: 'Lato', sans-serif;
+	position: absolute;
+	right: 10px;
+	top: 60%;
+	margin-top: -195px;
+	height: 330px;
+	width: 200px;
+	padding: 5px;
+	z-index: 5;
+	border: 1px solid #999;
+	background: #fff;
+	overflow: auto;
+}
