@@ -60,7 +60,7 @@ function initMap() {
 			var FSQfinal = fourSqBase + latLng + extraParams;
 
 			$.getJSON(FSQfinal, function(data) {
-				
+				console.log(data);
 				var venue_array = data.response.venues;
 				for (var i = 0; i < venue_array.length; i++){
 					createMarker(venue_array[i]);
