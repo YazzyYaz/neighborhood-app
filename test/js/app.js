@@ -4,6 +4,7 @@
 var map;
 var infowindow;
 var top_bar = $('#right-panel');
+var custom_icon = 'img/fs.png';
 
 function initMap() {
 	var mapOptions = {
@@ -115,11 +116,11 @@ function createMarker(place) {
 	var lng = place.location.lng;
 	var name = place.name;
 	var position = new google.maps.LatLng(lat, lng);
-	// var category = place.categories[0].name;
 
 	var marker = new google.maps.Marker({
 		map: map,
-		position: position
+		position: position,
+		icon: custom_icon
 	});
 	var head_name = '<label class="text-left">' + name + '</label>';
 	top_bar.append(head_name);
