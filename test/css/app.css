@@ -68,13 +68,17 @@ h3 {
 	color: white;
 }
 
+.coffee {
+	color: #7b564b;
+}
+
 #right-panel {
 	font-family: 'Lato', sans-serif;
 	position: absolute;
 	right: 10px;
 	top: 60%;
-	margin-top: -195px;
-	height: 330px;
+	margin-top: -175px;
+	height: 300px;
 	width: 200px;
 	padding: 5px;
 	z-index: 5;
