@@ -6,8 +6,8 @@ var infowindow;
 
 function initMap() {
 	var mapOptions = {
-		center: new google.maps.LatLng(40.5472,12.282715),
-		zoom: 6,
+		center: new google.maps.LatLng(40.7133,-73.9533),
+		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -20,8 +20,6 @@ function initMap() {
 	map.addListener('bounds_changed', function() {
 		searchBox.setBounds(map.getBounds());
 	});
-	
-
 
 	var markers = [];
 
@@ -30,26 +28,15 @@ function initMap() {
 		console.log(places);
 		var lat = places[0].geometry.location.lat();
 		var lng = places[0].geometry.location.lng();
-		console.log(lat, lng);
 
 		var location = {lat: lat, lng: lng};
 
 		infowindow = new google.maps.InfoWindow();
 
-		// var topPlace = [];
-		var service = new google.maps.places.PlacesService(map);
-		service.nearbySearch({
-			location: location,
-			radius: 500,
-			types: ['store']
-		}, callback);
 
 		if (places.length == 0) {
 			return;
 		}
-		
-
-		
 
 		// Clear out the old markers.
 		markers.forEach(function(marker) {
@@ -60,25 +47,23 @@ function initMap() {
 
 		// For each place, get the icon, name and location.
 		var bounds = new google.maps.LatLngBounds();
-		//console.log(bounds);
-		
-		
-		
-		places.forEach(function(place) {
-			// var lat = place.geometry.location.lat();
-			// var lng = place.geometry.location.lng();
-			// var name = place.name;
-			// var fourSqBase = 'https://api.foursquare.com/v2/venues/search?ll=';
-			// var latLng = lat + ',' + lng;
-			// var extraParams = "&limit=20&section=topPicks&day=any&time=any&locale=en&client_id=KSGW3MB0GNYFHTMAACRTTBXE04PYNCGWUOW2AVC1ZXDN023O&client_secret=SMN0HYJY5DEAVCJBANMCX1NONZAX41VDSJEJTU23FSZSFEOD&v=20150925";
-			// var FSQfinal = fourSqBase + latLng + extraParams;
 
-			// $.getJSON(FSQfinal, function(data) {
-			// 	topPlace = data.response.groups.items;
-			// 	for (var i = 0; i < topPlace.length; i++) {
-			// 		createMarkers(topPlace[i].venue);
-			// 	}
-			// });
+
+		places.forEach(function(place) {
+			var lat = place.geometry.location.lat();
+			var lng = place.geometry.location.lng();
+			var fourSqBase = 'https://api.foursquare.com/v2/venues/search?ll=';
+			var latLng = lat + ',' + lng;
+			var extraParams = "&limit=20&section=topPicks&day=any&time=any&locale=en&client_id=KSGW3MB0GNYFHTMAACRTTBXE04PYNCGWUOW2AVC1ZXDN023O&client_secret=SMN0HYJY5DEAVCJBANMCX1NONZAX41VDSJEJTU23FSZSFEOD&v=20150925";
+			var FSQfinal = fourSqBase + latLng + extraParams;
+
+			$.getJSON(FSQfinal, function(data) {
+				
+				var venue_array = data.response.venues;
+				for (var i = 0; i < venue_array.length; i++){
+					createMarker(venue_array[i]);
+				}
+			});
 
 
 			var icon = {
@@ -124,14 +109,18 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-	var placeLoc = place.geometry.location;
+	var lat = place.location.lat;
+	var lng = place.location.lng;
+	var name = place.name;
+	var position = new google.maps.LatLng(lat, lng);
+
 	var marker = new google.maps.Marker({
 		map: map,
-		position: place.geometry.location
+		position: position
 	});
 
 	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.setContent(place.name);
+		infowindow.setContent(name);
 		infowindow.open(map, this);
 	});
 }
