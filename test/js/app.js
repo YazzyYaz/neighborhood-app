@@ -4,10 +4,18 @@ var input;
 var service;
 var initialHood = "New York City";
 var markers = [];
+var fsMarkers = [];
 var newLoc;
 var top_bar = $('#right-panel');
 var custom_icon = 'img/fs.png';
 var infowindow;
+
+var MapMarkerSet = function(marker, name, category, position) {
+  this.marker = marker,
+  this.name = name,
+  this.category = category,
+  this.position = position
+};
 
 function initMap() {
 	var mapOptions = {
@@ -37,17 +45,32 @@ function createMarker(place){
 	var ven_lng = place.location.lng;
 	var name = place.name;
 	var position = new google.maps.LatLng(ven_lat, ven_lng);
+	var category = place.categories[0].name;
+	var contact = place.contact.formattedPhone;
+	var rating = place.rating;
+	var url = place.url;
 
 	var marker = new google.maps.Marker({
 		map: map,
 		position: position,
-		icon: custom_icon
+		icon: custom_icon,
+		title: name
 	});
+	var startingToken = '<div class="infowindow"><p><span class="v-name">' + name + '</span></p><p class="v-category"><span>' + category + '</span></p>'
+	var endingToken;
+	if (contact != undefined){
+		endingToken = '<p class="v-contact"><span>' + contact + '</span></p></div>';
+	} else {
+		endingToken = '</div>'
+	}
+	
+	fsMarkers.push(new MapMarkerSet(marker, name.toLowerCase(), category.toLowerCase(), position));
 
 	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.setContent(name);
+		infowindow.setContent(startingToken + endingToken);
 		infowindow.open(map, this);
 	});
+
 	var head_name = '<a><label class="text-left">' + name + '</label></a>';
 	var head_link = 
 	top_bar.append(head_name);
@@ -83,12 +106,13 @@ function getHoodInfo(place) {
 	var FSQfinal = fourSqBase + latLng + extraParams;
 
 	$.getJSON(FSQfinal, function(data) {
-		console.log(data);
 		var venue_array = data.response.venues;
 		for (var i = 0; i < venue_array.length; i++){
 			createMarker(venue_array[i]);
 		}
-	});
+	}).error(function() {
+			alert("Foursquare Data couldn't be loaded!")
+		});;
 }
 
 function removeHoodMarker() {
@@ -101,27 +125,35 @@ function removeHoodMarker() {
 	}
 }
 
+function removeFSMarkers() {
+	for (var i in fsMarkers) {
+		fsMarkers[i].marker.setMap(null);
+		fsMarkers[i].marker = null;
+	}
+	while (fsMarkers.length > 0) {
+		fsMarkers.pop();
+	}
+}
+
 function ViewModel() {
 	var self = this;
-
 	self.newHood = ko.observable(initialHood);
 	// self.inputTerm = ko.observable('');
-	console.log(self.newHood);
 
 	initMap();
 
 	// Check Hood
 	self.checkHood = ko.computed(function() {
 		if (self.newHood != '') {
-			// if (markers.length != 0) {
-			// 	removeMarkers();
-			// }
+			if (fsMarkers.length != 0) {
+				removeFSMarkers();
+			}
 			removeHoodMarker();
 			getHood(self.newHood());
 			// self.inputTerm('');
 		}
 	});
-	
+
 	google.maps.event.addDomListener(window, 'resize', function() {
 		var center = map.getCenter();
 		google.maps.event.trigger(map, 'resize');
