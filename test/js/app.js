@@ -48,7 +48,8 @@ function createMarker(place){
 		infowindow.setContent(name);
 		infowindow.open(map, this);
 	});
-	var head_name = '<label class="text-left">' + name + '</label>';
+	var head_name = '<a><label class="text-left">' + name + '</label></a>';
+	var head_link = 
 	top_bar.append(head_name);
 }
 
@@ -119,6 +120,12 @@ function ViewModel() {
 			getHood(self.newHood());
 			// self.inputTerm('');
 		}
+	});
+	
+	google.maps.event.addDomListener(window, 'resize', function() {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, 'resize');
+		map.setCenter(center); 
 	});
 }
 
