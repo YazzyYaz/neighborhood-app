@@ -2,3 +2,5 @@ node_modules
 bower_components
 src/drafts
 src/todo.txt
+bower.json
+package.json
