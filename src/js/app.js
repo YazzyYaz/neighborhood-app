@@ -1,6 +1,6 @@
 'use strict';
 
-
+// Global Variables
 var map;
 var input;
 var service;
@@ -12,6 +12,7 @@ var top_bar = $('#right-panel');
 var custom_icon = 'img/fs.png';
 var infowindow;
 
+// MapMarkerSet for venue markers
 var MapMarkerSet = function(marker, name, category, position) {
 	this.marker = marker,
 	this.name = name,
@@ -19,6 +20,7 @@ var MapMarkerSet = function(marker, name, category, position) {
 	this.position = position
 };
 
+// Map initialize function
 function initMap() {
 	var mapOptions = {
 		zoom: 14,
@@ -28,6 +30,7 @@ function initMap() {
 	infowindow = new google.maps.InfoWindow();
 }
 
+// Get Neighborhood Information from Google Maps PlacesService
 function getHood(hood){
 	var request = {
 		query: hood
@@ -36,12 +39,14 @@ function getHood(hood){
 	service.textSearch(request, callback);
 }
 
+// Callback Function To ensure Google Maps request is ok
 function callback(results, status) {
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
 		getHoodInfo(results[0]);
 	}
 }
 
+// Creating Various Markers
 function createMarker(place){
 	var ven_lat = place.location.lat;
 	var ven_lng = place.location.lng;
@@ -86,6 +91,7 @@ function createMarker(place){
 	console.log(fsMarkers);
 }
 
+// Get information about Neighborhood and Call Foursquare API
 function getHoodInfo(place) {
 	var lat = place.geometry.location.lat();
 	var lng = place.geometry.location.lng();
@@ -125,6 +131,7 @@ function getHoodInfo(place) {
 		});;
 }
 
+// Remove Neighborhood Marker
 function removeHoodMarker() {
 	for (var i in markers){
 		markers[i].setMap(null);
@@ -135,6 +142,7 @@ function removeHoodMarker() {
 	}
 }
 
+// Remove Foursquare Markers
 function removeFSMarkers() {
 	for (var i in fsMarkers) {
 		fsMarkers[i].marker.setMap(null);
@@ -145,11 +153,10 @@ function removeFSMarkers() {
 	}
 }
 
+// View Model
 function ViewModel() {
 	var self = this;
 	self.newHood = ko.observable(initialHood);
-	// self.inputTerm = ko.observable('');
-	self.topList = ko.observableArray(fsMarkers);
 	initMap();
 
 	// Check Hood
@@ -172,5 +179,5 @@ function ViewModel() {
 
 }
 
-// initialize the view model binding
+// Initialize View Model Binding
 ko.applyBindings(new ViewModel);
