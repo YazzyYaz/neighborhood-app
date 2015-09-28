@@ -1,8 +1,10 @@
 'use strict';
+
+
 var map;
 var input;
 var service;
-var initialHood = "New York City";
+var initialHood = "Brooklyn";
 var markers = [];
 var fsMarkers = [];
 var newLoc;
@@ -47,7 +49,6 @@ function createMarker(place){
 	var position = new google.maps.LatLng(ven_lat, ven_lng);
 	var category = place.categories[0].name;
 	var contact = place.contact.formattedPhone;
-	var rating = place.rating;
 	var url = place.url;
 
 	var marker = new google.maps.Marker({
@@ -56,10 +57,18 @@ function createMarker(place){
 		icon: custom_icon,
 		title: name
 	});
-	var startingToken = '<div class="infowindow"><p><span class="v-name">' + name + '</span></p><p class="v-category"><span>' + category + '</span></p>'
+	var startingToken = '<div><p><span>' + name + '</span></p><p><span>' + category + '</span></p>';
+	var midToken;
 	var endingToken;
+
+	if (url != undefined) {
+		midToken = '<p><span>' + url + '</span></p>';
+	} else {
+		midToken = '';
+	}
+
 	if (contact != undefined){
-		endingToken = '<p class="v-contact"><span>' + contact + '</span></p></div>';
+		endingToken = '<p><span>' + contact + '</span></p></div>';
 	} else {
 		endingToken = '</div>'
 	}
@@ -67,7 +76,7 @@ function createMarker(place){
 	fsMarkers.push(new MapMarkerSet(marker, name.toLowerCase(), category.toLowerCase(), position));
 
 	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.setContent(startingToken + endingToken);
+		infowindow.setContent(startingToken + midToken + endingToken);
 		infowindow.open(map, this);
 	});
 
