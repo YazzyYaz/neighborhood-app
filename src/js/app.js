@@ -13,10 +13,10 @@ var custom_icon = 'img/fs.png';
 var infowindow;
 
 var MapMarkerSet = function(marker, name, category, position) {
-  this.marker = marker,
-  this.name = name,
-  this.category = category,
-  this.position = position
+	this.marker = marker,
+	this.name = name,
+	this.category = category,
+	this.position = position
 };
 
 function initMap() {
@@ -83,6 +83,7 @@ function createMarker(place){
 	var head_name = '<a><label class="text-left">' + name + '</label></a>';
 	var head_link = 
 	top_bar.append(head_name);
+	console.log(fsMarkers);
 }
 
 function getHoodInfo(place) {
@@ -148,7 +149,7 @@ function ViewModel() {
 	var self = this;
 	self.newHood = ko.observable(initialHood);
 	// self.inputTerm = ko.observable('');
-
+	self.topList = ko.observableArray(fsMarkers);
 	initMap();
 
 	// Check Hood
@@ -159,7 +160,6 @@ function ViewModel() {
 			}
 			removeHoodMarker();
 			getHood(self.newHood());
-			// self.inputTerm('');
 		}
 	});
 
@@ -168,6 +168,8 @@ function ViewModel() {
 		google.maps.event.trigger(map, 'resize');
 		map.setCenter(center); 
 	});
+	console.log(self.topList);
+
 }
 
 // initialize the view model binding

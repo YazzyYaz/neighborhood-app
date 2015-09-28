@@ -1,8 +1,0 @@
-1) Set up the layout using foundation
-2) set up custom styles
-3) set up nice components for the functionalities of the website
-4) integrate google maps
-
-
-5) Design the Knockout.js application
-6) organize items into models, views, and viewmodels
