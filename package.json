@@ -9,6 +9,12 @@
   "author": "Yaz Khoury",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "gulp-filter": "^3.0.1",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-minify-inline": "^0.1.1",
+    "gulp-uglify": "^1.4.1",
+    "gulp-uglifycss": "^1.0.4",
+    "main-bower-files": "^2.9.0"
   }
 }

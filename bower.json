@@ -8,7 +8,7 @@
   "main": "",
   "moduleType": [],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/YazzyYaz/neighborhood-app",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "knockout": "~3.3.0"
   }
 }
