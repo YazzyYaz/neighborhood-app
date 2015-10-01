@@ -61,7 +61,7 @@ h3 {
 
 #map-container {
 	width: 100%;
-	height:75%;
+	height:85%;
 }
 
 .foot-text {
@@ -85,4 +85,9 @@ h3 {
 	border: 1px solid #999;
 	background: #fff;
 	overflow: auto;
+}
+
+.fs {
+	width: 200px;
+	height: 40px;
 }
