@@ -1,9 +1,11 @@
 @import 'normalize';
 @import 'foundation/settings';
 @import 'foundation/functions';
-@import 'foundation/components/grid';
-@import 'foundation/components/panels';
-@import 'foundation/components/top-bar';
+@import 'foundation/global';
+@import 'foundation/grid';
+// @import 'foundation/forms';
+@import 'foundation/top-bar';
+@import 'foundation/dropdown';
 
 
 //colors
