@@ -40,7 +40,7 @@ function initMap() {
 
 	var mapOptions = {
 		center: new google.maps.LatLng(40.7133, -73.9533),
-		zoom: 13,
+		zoom: 14,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 
@@ -88,12 +88,12 @@ function ViewModel() {
 		var FSQfinal = fourSqBase + latLng + extraParams;
 
 		// Declare Needed Variables
-		var results, 
-			name, 
-			url, 
-			rating, 
-			checkinCount, 
-			street, 
+		var results,
+			name,
+			url,
+			rating,
+			checkinCount,
+			street,
 			cityState;
 
 		// Request JSON string and attribute the Data to the Place Object
@@ -140,7 +140,7 @@ function ViewModel() {
 				// Declare Info Window variables
 				var startToke,
 					midToke,
-					endToke; 
+					endToke;
 
 				// Attribute data to InfoWindow
 				startToke = '<h3>' + placeItem.name + '<h3>\n<p><b>Address:</b></p>\n<p>' + placeItem.street + '</p>\n<p>' + placeItem.cityState + '</p>';
@@ -153,11 +153,11 @@ function ViewModel() {
 				}
 
 				endToke = '<p><b>Check Ins: </b>' + placeItem.checkinCount + '</p>';
-				
+
 				infowindow.setContent(startToke + midToke + endToke);
 				infowindow.open(map, placeItem.marker);
 			}, 200);
-			
+
 			map.panTo(placeItem.marker.position);
 		});
 	});
@@ -171,7 +171,7 @@ function ViewModel() {
 	google.maps.event.addDomListener(window, 'resize', function() {
 		var center = map.getCenter();
 		google.maps.event.trigger(map, 'resize');
-		map.setCenter(center); 
+		map.setCenter(center);
 	});
 
 	// This function helps us filter search results in the input to display the infolist and the marker pin
