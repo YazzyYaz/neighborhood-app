@@ -1,62 +1,25 @@
+/*
+
+	Author: Yaz Khoury
+	Date: October 2015
+	License: MIT
+	Title: Application ViewModel
+
+ */
+
 'use strict';
 
 // Global Variables
+
 var map;
 var marker;
 var input;
 var service;
-var custom_icon = 'img/fs.png';
+var custom_icon = 'img/fs-pin.png';
 var infowindow;
 
 
-// Model
-var placeModel = [
-	{
-		name: "Verboten Club",
-		lat: 40.722095,
-		lng: -73.959059
-	},
-	{
-		name: "Williamsburg Bagel",
-		lat: 40.707487,
-		lng: -73.961136
-	},
-	{
-		name: "Motorino Pizza",
-		lat: 40.710550,
-		lng: -73.963350
-	},
-	{
-		name: "Brisket Town",
-		lat: 40.711475,
-		lng: -73.962951
-	},
-	{
-		name: "OddFellows Ice Cream Co.",
-		lat: 40.718039,
-		lng: -73.963732
-	},
-	{
-		name: "Knitting Factory",
-		lat: 40.714219,
-		lng: -73.955833
-	},
-	{
-		name: "Brooklyn Brewery",
-		lat: 40.721645,
-		lng: -73.957258
-	},
-	{
-		name: "Brooklyn Industries",
-		lat: 40.718588,
-		lng: -73.957256
-	},
-	{
-		name: "Loosie Rouge",
-		lat: 40.710998,
-		lng: -73.964860
-	}
-];
+// Data Model for Pin Information
 
 var Place = function(data){
 	this.name = ko.observable(data.name);
@@ -71,16 +34,16 @@ var Place = function(data){
 	this.isVisible = ko.observable(false);
 }
 
+// Google Map Initialize Function
 
-
-
-// Map initialize function
 function initMap() {
+
 	var mapOptions = {
 		center: new google.maps.LatLng(40.7133, -73.9533),
-		zoom: 14,
+		zoom: 15,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
+
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	infowindow = new google.maps.InfoWindow();
 }
@@ -88,20 +51,25 @@ function initMap() {
 
 
 
-// View Model
+// View Model for the Application
 function ViewModel() {
+	// Variables
 	var self = this;
 	self.placeList = ko.observableArray([]);
 	self.filter = ko.observable('');
+
+	// We initialize the Map
 	initMap();
 
-	/*Creates new Place objects for each item in initialPlaces*/
+	// Create a new Place object for our model in model.js
 	placeModel.forEach(function(placeItem){
 		self.placeList.push( new Place(placeItem) );
 	});
 
+	// Function for iterating our Place object to get information and use Foursquare API
 	self.placeList().forEach(function(placeItem){
 
+		// We declare a new Marker and give it the coordinates from the model
 		marker = new google.maps.Marker({
 			position: new google.maps.LatLng(placeItem.lat(), placeItem.lng()),
 			map: map,
@@ -109,6 +77,8 @@ function ViewModel() {
 			title: placeItem.name(),
 			icon: custom_icon
 		});
+
+		// Assign the marker to the Place object observable
 		placeItem.marker = marker;
 
 		// Get FourSquare URL Link
@@ -117,8 +87,16 @@ function ViewModel() {
 		var extraParams = "&limit=1&intent=match&query="+ placeItem.name() +"&client_id=KSGW3MB0GNYFHTMAACRTTBXE04PYNCGWUOW2AVC1ZXDN023O&client_secret=SMN0HYJY5DEAVCJBANMCX1NONZAX41VDSJEJTU23FSZSFEOD&v=20150925";
 		var FSQfinal = fourSqBase + latLng + extraParams;
 
+		// Declare Needed Variables
+		var results, 
+			name, 
+			url, 
+			rating, 
+			checkinCount, 
+			street, 
+			cityState;
 
-		var results, name, url, rating, checkinCount, street, cityState;
+		// Request JSON string and attribute the Data to the Place Object
 		$.getJSON(FSQfinal, function(data){
 			results = data.response.groups[0].items[0].venue;
 			placeItem.name = results.name;
@@ -131,7 +109,7 @@ function ViewModel() {
 			console.log("FourSquare data couldn't be loaded!");
 		});
 
-		/*Toggles the bounce animation on the marker*/
+		// Toggle the Bounce animation of the Markers
 		function toggleBounce() {
 			if(placeItem.marker.getAnimation() !== null) {
 				placeItem.marker.setAnimation(null);
@@ -140,6 +118,7 @@ function ViewModel() {
 			}
 		}
 
+		// We check if the pin is called in the input, removing all the other pins
 		placeItem.isVisible.subscribe(function(currentState) {
 			if (currentState) {
 				placeItem.marker.setMap(map);
@@ -149,17 +128,36 @@ function ViewModel() {
 		});
 		placeItem.isVisible(true);
 
-		
 
-
-		/*When the marker is clicked, animate the marker and show infowindow*/
+		// Clicking the Marker shows the infowindow
 		google.maps.event.addListener(placeItem.marker, 'click', function(){
+
 			toggleBounce();
 			setTimeout(toggleBounce, 600);
+
 			setTimeout(function(){
-				infowindow.setContent('<h3>' + placeItem.name + '</h3>\n<p><b>Rating: </b>' + placeItem.rating + '</p>\n<p><b>Check Ins: </b>' + placeItem.checkinCount + '</p>\n<a href=' + placeItem.url + '>' + placeItem.url + '</a>\n<p><b>Address:</b></p>\n<p>' + placeItem.street + '</p>\n<p>' + placeItem.cityState + '</p>');
+
+				// Declare Info Window variables
+				var startToke,
+					midToke,
+					endToke; 
+
+				// Attribute data to InfoWindow
+				startToke = '<h3>' + placeItem.name + '<h3>\n<p><b>Address:</b></p>\n<p>' + placeItem.street + '</p>\n<p>' + placeItem.cityState + '</p>';
+
+				// Check to see if url and checkins are there
+				if (placeItem.url != undefined && placeItem.rating != undefined){
+					midToke = '\n<p><b>Rating: ' + placeItem.rating + '</p>\n<a href=' + placeItem.url + '>' + placeItem.url + '</a>\n';
+				} else {
+					midToke = '\n<p><b>Rating: No Rating found using Foursquare</p>\n<p>Link not posted for this venue</p>\n';
+				}
+
+				endToke = '<p><b>Check Ins: </b>' + placeItem.checkinCount + '</p>';
+				
+				infowindow.setContent(startToke + midToke + endToke);
 				infowindow.open(map, placeItem.marker);
 			}, 200);
+			
 			map.panTo(placeItem.marker.position);
 		});
 	});
@@ -169,12 +167,14 @@ function ViewModel() {
 		google.maps.event.trigger(placeItem.marker,'click');
 	};
 
+	// Map resizes if the window resizes. Better responsiveness
 	google.maps.event.addDomListener(window, 'resize', function() {
 		var center = map.getCenter();
 		google.maps.event.trigger(map, 'resize');
 		map.setCenter(center); 
 	});
 
+	// This function helps us filter search results in the input to display the infolist and the marker pin
 	self.filterPins = ko.dependentObservable(function () {
 		var search  = self.filter().toLowerCase();
 		return ko.utils.arrayFilter(self.placeList(), function (pin) {
