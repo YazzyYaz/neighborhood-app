@@ -34,8 +34,11 @@
 				<div class="row">
 					<div class="small-12 columns" id="flexer">
 						<span id="logo-font" class="fa fa-map fa-4x"></span><h1 class="main-logo">Hidden Gem</h1>
+						
 					</div>
 				</div>
+				
+				
 
 				<nav class="top-bar" data-topbar role="navigation">
 					<ul class="title-area">
@@ -60,20 +63,21 @@
 					</section>
 				</nav>
 
+				<div class="row">
+					<div id="ven-contain" class="large-12  medium-12 small-12 columns">
+						<h4>Venues</h4>
+						<ul data-bind="foreach: filterPins">
+							<li data-bind="text: name"></li>
+						</ul>
+					</div>
+				</div>
+
 			</header>
 
 		</section> <!--End of Header Section-->
 
 		<section id="map-container"> <!--Map Section-->
-
 			<div id="map-canvas"></div>
-			<div class="panel" id="right-panel">
-				<h3 class="text-center" id="top-pan">Top 20</h3>
-				<ul data-bind="foreach: filterPins">
-					<li data-bind="text: name"></li>
-				</ul>
-			</div>
-
 		</section> <!--End of Map Section-->
 
 		<section> <!--Footer Section-->
