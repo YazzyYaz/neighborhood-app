@@ -51,7 +51,7 @@
 							<li class="has-form" id="search-form">
 								<div class="row collapse">
 									<div class="large-12 small-12 columns">
-										<input type="text" id="keyterm" data-bind="value: newHood" placeholder="Find Hood">
+										<input type="text" id="keyterm"  placeholder="Find Hood" data-bind="value: filter, valueUpdate: 'keyup'" autocomplete="off">
 									</div>
 								</div>
 							</li>
@@ -69,7 +69,9 @@
 			<div id="map-canvas"></div>
 			<div class="panel" id="right-panel">
 				<h3 class="text-center" id="top-pan">Top 20</h3>
-				<label data-bind="text: name"></label>
+				<ul data-bind="foreach: filterPins">
+					<li data-bind="text: name"></li>
+				</ul>
 			</div>
 
 		</section> <!--End of Map Section-->
@@ -107,13 +109,12 @@
 		<!-- Javascript -->
 		<script src="js/vendor/jquery.js"></script>
 		<script src="js/foundation.min.js"></script>
-		<script src="js/knockout.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js"></script>
 		
 		<script>
 			$(document).foundation();
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
-		<!--<script src="js/app.js"></script>-->
 		<script src="js/app.js"></script>
 
 	</body>
