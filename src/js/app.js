@@ -13,8 +13,6 @@
 
 var map;
 var marker;
-var input;
-var service;
 var custom_icon = 'img/fs-pin.png';
 var infowindow;
 
@@ -88,13 +86,7 @@ function ViewModel() {
 		var FSQfinal = fourSqBase + latLng + extraParams;
 
 		// Declare Needed Variables
-		var results,
-			name,
-			url,
-			rating,
-			checkinCount,
-			street,
-			cityState;
+		var results;
 
 		// Request JSON string and attribute the Data to the Place Object
 		$.getJSON(FSQfinal, function(data){
