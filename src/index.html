@@ -51,7 +51,9 @@
 					<div id="ven-contain" class="large-12  medium-12 small-12 columns">
 						<h4>Venues</h4>
 						<ul data-bind="foreach: filterPins">
-							<li data-bind="text: name"></li>
+							<li>
+								<span data-bind="text: name, click: $parent.show_info"></span>
+							</li>
 						</ul>
 					</div>
 				</div>
