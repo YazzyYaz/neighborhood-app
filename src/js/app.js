@@ -19,7 +19,7 @@ var infowindow;
 
 // Data Model for Pin Information
 
-var Place = function(data){
+var Place = function(data) {
 	this.name = ko.observable(data.name);
 	this.lat = ko.observable(data.lat);
 	this.lng = ko.observable(data.lng);
@@ -30,7 +30,7 @@ var Place = function(data){
 	this.cityState = ko.observable();
 	this.url = ko.observable();
 	this.isVisible = ko.observable(false);
-}
+};
 
 // Google Map Initialize Function
 
@@ -98,6 +98,13 @@ function ViewModel() {
 			placeItem.street = results.location.formattedAddress[0];
 			placeItem.cityState = results.location.formattedAddress[1];
 		}).error(function(e){
+			var err = 'API Request failed so could not get '
+			placeItem.name = placeItem.name();
+			placeItem.url = err + 'url';
+			placeItem.rating = err + 'rating';
+			placeItem.checkinCount = err + 'check-in data';
+			placeItem.street = err + 'street name';
+			placeItem.cityState = err + 'address';
 			console.log("FourSquare data couldn't be loaded!");
 		});
 
