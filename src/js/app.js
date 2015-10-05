@@ -44,6 +44,9 @@ function initMap() {
 
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	infowindow = new google.maps.InfoWindow();
+
+	// Initialize View Model Binding
+	ko.applyBindings(new ViewModel);
 }
 
 
@@ -57,7 +60,7 @@ function ViewModel() {
 	self.filter = ko.observable('');
 
 	// We initialize the Map
-	initMap();
+	// initMap();
 
 	// Create a new Place object for our model in model.js
 	placeModel.forEach(function(placeItem){
@@ -104,7 +107,7 @@ function ViewModel() {
 			placeItem.rating = err + 'rating';
 			placeItem.checkinCount = err + 'check-in data';
 			placeItem.street = err + 'street name';
-			placeItem.cityState = err + 'address';
+			placeItem.cityState = err + 'address'; 
 			console.log("FourSquare data couldn't be loaded!");
 		});
 
@@ -184,6 +187,3 @@ function ViewModel() {
 	});
 
 }
-
-// Initialize View Model Binding
-ko.applyBindings(new ViewModel);
