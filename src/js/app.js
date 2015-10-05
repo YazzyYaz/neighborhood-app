@@ -49,9 +49,6 @@ function initMap() {
 	ko.applyBindings(new ViewModel);
 }
 
-
-
-
 // View Model for the Application
 function ViewModel() {
 	// Variables
@@ -101,7 +98,7 @@ function ViewModel() {
 			placeItem.street = results.location.formattedAddress[0];
 			placeItem.cityState = results.location.formattedAddress[1];
 		}).error(function(e){
-			var err = 'API Request failed so could not get '
+			var err = 'API Request failed so could not get ';
 			placeItem.name = placeItem.name();
 			placeItem.url = err + 'url';
 			placeItem.rating = err + 'rating';
@@ -148,7 +145,7 @@ function ViewModel() {
 				startToke = '<h3>' + placeItem.name + '<h3>\n<p><b>Address:</b></p>\n<p>' + placeItem.street + '</p>\n<p>' + placeItem.cityState + '</p>';
 
 				// Check to see if url and checkins are there
-				if (placeItem.url != undefined && placeItem.rating != undefined){
+				if (placeItem.url !== undefined && placeItem.rating !== undefined){
 					midToke = '\n<p><b>Rating: ' + placeItem.rating + '</p>\n<a href=' + placeItem.url + '>' + placeItem.url + '</a>\n';
 				} else {
 					midToke = '\n<p><b>Rating: No Rating found using Foursquare</p>\n<p>Link not posted for this venue</p>\n';
